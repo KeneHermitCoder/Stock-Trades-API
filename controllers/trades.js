@@ -29,15 +29,10 @@ module.exports = {
     getById: async function (req, res) {
         try {
             const foundTrade = await Trade.findByPk(req.params.id);
-            if (!foundTrade) {
-                // return res.status(404).send();
-                // return res.status(404).json({ message: 'ID not found' });
-                return res.status(404).send('ID not found');
-            }
+            if (!foundTrade) return res.status(404).send('ID not found');
             res.status(200).json(foundTrade);
         } catch (error) {
-            // res.status(404).json({ message: 'ID not found' });
-            return res.status(404).send('ID not found');
+            res.status(500).json({ error: error.message });
         };
     },
 
